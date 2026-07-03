@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SODEN WL</title>
+  <meta name="description" content="South Denver Warlord events for the Warlord CCG/TCG community." />
+  <meta property="og:title" content="South Denver Warlord" />
+  <meta property="og:description" content="Upcoming Warlord CCG/TCG events in South Denver." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sodenwarlord.com" />
+  <link rel="icon" href="assets/SodenLogo.png" type="image/png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__content">
+      <div class="hero__eyebrow-row">
+        <span class="eyebrow">South Denver Warlord (SODEN)</span>
+      </div>
+      <h1><img src="assets/SodenLogo.png" alt="logo" class="hero__icon" />Warlord CCG<img src="assets/SodenLogo.png" alt="logo" class="hero__icon flipped" /></h1>
+      <p id="site-description" class="intro">Loading site information…</p>
+      <p> Find us on the <a href="https://discord.gg/Gv9pq3nY55" target="_blank" rel="noopener noreferrer">Warlord Discord</a> Kofax (DL), Jormunganduur, and Praesum (admin) </p>
+      <p> <em>In the case that events are rescheduled or cancelled, please check back here on event days or RSVP on discord to one of the users above or the contact email address at the bottom so we can make sure to keep you updated of changes.</em></p>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="toolbar" aria-label="Event filters">
+      <div>
+        <h2>Upcoming Events</h2>
+        <p class="muted">Click an event to expand it, then add it to Google Calendar.</p>
+      </div>
+      <div class="toolbar__actions">
+        <button id="download-events" class="button button--ghost" type="button">Download Events</button>
+        <button id="show-past" class="button button--ghost" type="button">Show past events</button>
+      </div>
+    </section>
+
+    <section id="events" class="events" aria-live="polite"></section>
+    <p id="empty-state" class="empty-state" hidden>No events are currently listed. Update <code>events.json</code> to add one.</p>
+
+  </main>
+    <footer class="footer">
+    <span>sodenwarlord.com</span>
+    <span>South Denver Warlord community calendar</span>
+    <span><a href="mailto:my.praesum@gmail.com">Contact Us</a></span>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

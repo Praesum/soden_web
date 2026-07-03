@@ -1,0 +1,48 @@
+{
+  "description": "South Denver Warlord is a local community page for Warlord CCG/TCG players in the Denver metro area. We often play weekly on Thursdays at 6pm, at the Highlands Ranch Enchanted Grounds. Check in weekly to see updates to upcoming events.",
+  "timezone": "America/Denver",
+  "events": [
+    {
+      "title": "Overlord Diabolis Challenge",
+      "start": "2026-07-09T18:00:00-06:00",
+      "end": "2026-07-09T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "A Swiss Tournament will start at 6pm MDT. A points system will determine challenge order for the Overlord Diabolus Ryden. If you defeat Diabolus in the official tournament challenge, you will keep the Overlord and the runner's deck. To see the overlord and the challenge, this reddit thread gets yout pointed in the right direction https://www.reddit.com/r/warlordccg/comments/1tml6x6/the_new_overlord_is_going_to_be_a_fun_challenge/"
+    },
+    {
+      "title": "Demo and New Player Meetup",
+      "start": "2026-07-16T18:00:00-06:00",
+      "end": "2026-07-16T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "Intro games, rules help, and deckbuilding for Warlord CCG/TCG. We'll have preconstructed decks for you to play and learn the game. Experienced players are welcome to bring their constructed decks and battle it out."
+    },
+    {
+      "title": "Constructed Casual Play Night",
+      "start": "2026-07-23T18:00:00-06:00",
+      "end": "2026-07-23T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "Classic 5E Constructed Casual Play Night. Bring your own deck and play with other local players. This is a casual event, so if you're a new player, show up and learn the game."
+    },
+    {
+      "title": "Overlord Diabolis Challenge",
+      "start": "2026-07-25T13:00:00-06:00",
+      "end": "2026-07-25T19:30:00-06:00",
+      "location": "Games Ahoy, 1745 Main St #7, Longmont, CO 80501",
+      "description": "A Swiss Tournament utilizing a points system will determine challenge order for the Overlord Diabolus Ryden. If you defeat Diabolus in the official tournament challenge, you will keep the Overlord and the runner's deck. To see the overlord and the challenge, this reddit thread gets yout pointed in the right direction https://www.reddit.com/r/warlordccg/comments/1tml6x6/the_new_overlord_is_going_to_be_a_fun_challenge/"
+    },
+    {
+      "title": "Warlord ITA Draft Event",
+      "start": "2026-07-30T18:00:00-06:00",
+      "end": "2026-07-30T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "Sealed box draft event. Players will draft from sealed packs of cards and build their decks on the spot. This is a great way to experience the game and learn new strategies. Bring $16 to purchase packs or bring 3 unopened packs of ITA Warlord CCG."
+    },
+    {
+      "title": "Dragon Lord Challenge",
+      "start": "2026-08-06T18:00:00-06:00",
+      "end": "2026-08-06T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "Tournament Play to determine the order of challenge for the Dreq Qor-Teth Dragon Lord. If you defeat the Dragon Lord in the official tournament challenge, you will keep the Overlord and the runner's deck. Note, you need a valid, unmarked/punched Overlord to challenge the Dragon Lord officially. You can still participate in the tournament and play against the Dragon Lord, but you will not be able to challenge the Dragon Lord."
+    }
+  ]
+}

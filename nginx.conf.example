@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    server_name sodenwarlord.com www.sodenwarlord.com;
+
+    root /var/www/sodenwarlord;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
