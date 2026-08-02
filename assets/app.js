@@ -19,6 +19,22 @@ function escapeHtml(value = '') {
   }[char]));
 }
 
+function formatDateOnly(value = '') {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return 'Date pending';
+
+  const [year, month, day] = trimmed.split('-').map(part => Number(part));
+  if ([year, month, day].some(Number.isNaN)) {
+    return trimmed;
+  }
+
+  return new Date(year, month - 1, day).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
 function compactGoogleDate(date) {
   return new Date(date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
 }
@@ -245,7 +261,7 @@ function renderLeaderboard(entries = []) {
     const playerName = String(entry.player || entry.Player || 'Unnamed player');
     const placement = String(entry.tournamentPlacement || entry['Tournament Placement'] || 'Placement pending');
     const dateValue = entry.date || entry.Date || '';
-    const dateLabel = dateValue ? new Date(dateValue).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Date pending';
+    const dateLabel = formatDateOnly(dateValue);
     const deckValue = entry.deck ?? entry.Deck ?? '';
     const deckText = typeof deckValue === 'string'
       ? deckValue.trim()
