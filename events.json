@@ -3,25 +3,25 @@
   "timezone": "America/Denver",
   "events": [
     {
-      "title": "Overlord Diabolis Challenge",
+      "title": "Demo and New Player Meetup",
       "start": "2026-08-06T18:00:00-06:00",
       "end": "2026-08-06T21:30:00-06:00",
-      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
-      "description": "A Swiss Tournament will start at 6pm MDT. A points system will determine challenge order for the Overlord Diabolus Ryden. If you defeat Diabolus in the official tournament challenge, you will keep the Overlord and the runner's deck. To see the overlord and the challenge, this reddit thread gets you pointed in the right direction https://www.reddit.com/r/warlordccg/comments/1tml6x6/the_new_overlord_is_going_to_be_a_fun_challenge/"
-    },
-    {
-      "title": "Demo and New Player Meetup",
-      "start": "2026-08-13T18:00:00-06:00",
-      "end": "2026-08-13T21:30:00-06:00",
       "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
       "description": "Intro games, rules help, and deckbuilding for Warlord CCG/TCG. We'll have preconstructed decks for you to play and learn the game. Experienced players are welcome to bring their constructed decks and battle it out."
     },
     {
       "title": "Overlord Diabolis Challenge",
+      "start": "2026-08-13T18:00:00-06:00",
+      "end": "2026-08-13T21:30:00-06:00",
+      "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
+      "description": "A Swiss Tournament will start at 6pm MDT. A points system will determine challenge order for the Overlord Diabolus Ryden. If you defeat Diabolus in the official tournament challenge, you will keep the Overlord and the runner's deck. To see the overlord and the challenge, this reddit thread gets you pointed in the right direction https://www.reddit.com/r/warlordccg/comments/1tml6x6/the_new_overlord_is_going_to_be_a_fun_challenge/"
+    },
+    {
+      "title": "Casual Play Night",
       "start": "2026-08-20T18:00:00-06:00",
       "end": "2026-08-20T21:30:00-06:00",
       "location": "Enchanted Grounds, 8800 S Colorado Blvd, Highlands Ranch, CO 80126",
-      "description": "A Swiss Tournament utilizing a points system will determine challenge order for the Overlord Diabolus Ryden. If you defeat Diabolus in the official tournament challenge, you will keep the Overlord and the runner's deck. To see the overlord and the challenge, this reddit thread gets you pointed in the right direction https://www.reddit.com/r/warlordccg/comments/1tml6x6/the_new_overlord_is_going_to_be_a_fun_challenge/"
+      "description": "Intro games, rules help, and deckbuilding for Warlord CCG/TCG. We'll have preconstructed decks for you to play and learn the game. Experienced players are welcome to bring their constructed decks and battle it out."
     },
     {
       "title": "Warlord ITA Draft Event",
