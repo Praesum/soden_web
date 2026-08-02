@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deck Cost Estimator | SODEN WL</title>
+  <meta name="description" content="Estimate the cost of a Warlord deck using the local card price list." />
+  <link rel="icon" href="assets/SodenLogo.png" type="image/png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="hero hero--compact">
+    <div class="hero__content">
+      <div class="hero__eyebrow-row">
+        <span class="eyebrow">Warlord Deck Estimator</span>
+      </div>
+      <h1>Estimate a deck cost</h1>
+      <p class="intro">Paste a deck list with quantities, or use one of the sample decks below. The total updates from the local Warlord price data after you submit.</p>
+      <p><a class="button button--ghost" href="index.html">Back to the event calendar</a></p>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="panel" aria-labelledby="deck-estimator-title">
+      <div class="panel__header">
+        <div>
+          <h2 id="deck-estimator-title">Deck list input</h2>
+          <p class="muted">Flexible input is supported for lines like “2 Ac'Vuk”, “1 'Mad' Pat Carrik”, and section labels such as “Characters” or “Actions”.</p>
+        </div>
+        <div class="button-row">
+          <button id="load-sample-1" class="button button--ghost" type="button">Load sample deck 1</button>
+          <button id="load-sample-2" class="button button--ghost" type="button">Load sample deck 2</button>
+        </div>
+      </div>
+
+      <form id="deck-form" class="deck-form">
+        <label class="sr-only" for="deck-list">Deck list</label>
+        <textarea id="deck-list" name="deck-list" rows="18" spellcheck="false"></textarea>
+        <div class="button-row button-row--end">
+          <button class="button" type="submit">Estimate total</button>
+        </div>
+      </form>
+
+      <div id="estimate-result" class="estimate-result" aria-live="polite">
+        <p class="muted">No estimate yet. Paste a deck list and submit to see the total.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>sodenwarlord.com</span>
+    <span>Deck cost estimates are based on the local price sheet.</span>
+    <span><a href="mailto:my.praesum@gmail.com">Contact Us</a></span>
+  </footer>
+
+  <script src="assets/deck-estimator.js"></script>
+</body>
+</html>
