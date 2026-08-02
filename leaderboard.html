@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leaderboard | SODEN WL</title>
+  <meta name="description" content="Record of Colorado Overlord and Dragonlord wins along with their deck details." />
+  <link rel="icon" href="assets/SodenLogo.png" type="image/png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link" href="index.html">Home</a>
+    <a class="site-nav__link" href="deck-estimator.html">Deck Estimator</a>
+    <a class="site-nav__link" href="leaderboard.html">Leaderboard</a>
+  </nav>
+
+  <header class="hero hero--compact">
+    <div class="hero__content">
+      <div class="hero__eyebrow-row">
+        <span class="eyebrow">Leaderboard</span>
+      </div>
+      <h1>Challenge results</h1>
+      <p class="intro">Browse Challenge Wins, expand each entry to see the listed deck.</p>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="panel" aria-labelledby="leaderboard-page-title">
+      <div class="panel__header">
+        <div>
+          <h2 id="leaderboard-page-title">Results</h2>
+          <p class="muted">Entries are loaded from the local leaderboard data file.</p>
+        </div>
+      </div>
+      <div id="leaderboard-list" class="leaderboard-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>sodenwarlord.com</span>
+    <span>Community tournament results and deck notes.</span>
+    <span><a href="mailto:my.praesum@gmail.com">Contact Us</a></span>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

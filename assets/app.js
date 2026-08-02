@@ -3,6 +3,7 @@ const emptyStateEl = document.querySelector('#empty-state');
 const descriptionEl = document.querySelector('#site-description');
 const showPastButton = document.querySelector('#show-past');
 const downloadEventsButton = document.querySelector('#download-events');
+const leaderboardListEl = document.querySelector('#leaderboard-list');
 
 let allEvents = [];
 let showPast = false;
@@ -84,6 +85,8 @@ function downloadIcs(event) {
 }
 
 function renderEvents() {
+  if (!eventsEl || !emptyStateEl) return;
+
   const now = new Date();
   const filtered = allEvents
     .filter(event => showPast || new Date(event.end) >= now)
@@ -138,6 +141,149 @@ function renderEvents() {
   });
 }
 
+function parseLeaderboardPayload(text) {
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    const entries = [];
+    const lines = text.replace(/\r\n/g, '\n').split('\n');
+    let currentEntry = null;
+    let collectingDeck = false;
+    let deckLines = [];
+
+    const finalizeEntry = () => {
+      if (!currentEntry) return;
+      if (collectingDeck) {
+        currentEntry.Deck = deckLines.join('\n').trim();
+      }
+      entries.push(currentEntry);
+      currentEntry = null;
+      collectingDeck = false;
+      deckLines = [];
+    };
+
+    for (const rawLine of lines) {
+      const trimmed = rawLine.trim();
+
+      if (!trimmed) {
+        if (collectingDeck) {
+          deckLines.push('');
+        }
+        continue;
+      }
+
+      if (trimmed === '}' || trimmed === '},') {
+        finalizeEntry();
+        continue;
+      }
+
+      if (collectingDeck) {
+        if (/^"[^"]+"\s*:/.test(trimmed)) {
+          currentEntry.Deck = deckLines.join('\n').trim();
+          collectingDeck = false;
+          deckLines = [];
+        } else {
+          deckLines.push(rawLine.replace(/^\s{8}/, '').replace(/^\s{4}/, ''));
+          continue;
+        }
+      }
+
+      if (trimmed === '{' || trimmed === '[') {
+        currentEntry = {};
+        continue;
+      }
+
+      const propertyMatch = trimmed.match(/^"([^"]+)"\s*:\s*(.*)$/);
+      if (!propertyMatch) continue;
+
+      const key = propertyMatch[1];
+      const value = propertyMatch[2].trim();
+
+      if (!currentEntry) {
+        currentEntry = {};
+      }
+
+      if (key === 'Deck') {
+        if (value.startsWith('"') && value.endsWith('"')) {
+          currentEntry.Deck = value.slice(1, -1).replace(/\\n/g, '\n');
+        } else {
+          collectingDeck = true;
+          deckLines = [];
+        }
+        continue;
+      }
+
+      if (value.startsWith('"') && value.endsWith('"')) {
+        currentEntry[key] = value.slice(1, -1);
+      } else if (value !== '') {
+        currentEntry[key] = value;
+      }
+    }
+
+    if (currentEntry) {
+      finalizeEntry();
+    }
+
+    return entries;
+  }
+}
+
+function renderLeaderboard(entries = []) {
+  if (!leaderboardListEl) return;
+
+  leaderboardListEl.innerHTML = '';
+
+  if (!entries.length) {
+    leaderboardListEl.innerHTML = '<p class="empty-state">No leaderboard results yet. Add entries to leaderboard.json.</p>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  entries.forEach((entry, index) => {
+    const detailsId = `leaderboard-details-${index}`;
+    const playerName = String(entry.player || entry.Player || 'Unnamed player');
+    const placement = String(entry.tournamentPlacement || entry['Tournament Placement'] || 'Placement pending');
+    const dateValue = entry.date || entry.Date || '';
+    const dateLabel = dateValue ? new Date(dateValue).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Date pending';
+    const deckValue = entry.deck ?? entry.Deck ?? '';
+    const deckText = typeof deckValue === 'string'
+      ? deckValue.trim()
+      : Array.isArray(deckValue)
+        ? deckValue.filter(Boolean).join('\n')
+        : '';
+    const warlordDbUrl = entry.warlordDbUrl || entry.warlordDBUrl || entry.warlordDBLink || entry.warlordDbLink || '';
+    const article = document.createElement('article');
+    article.className = 'leaderboard-card';
+    article.innerHTML = `
+      <button class="leaderboard-card__toggle" type="button" aria-expanded="false" aria-controls="${detailsId}">
+        <span>
+          <span class="leaderboard-card__player">${escapeHtml(playerName)}</span>
+          <span class="leaderboard-card__meta">${escapeHtml(placement)} • ${escapeHtml(dateLabel)}</span>
+        </span>
+        <span class="leaderboard-card__chevron">⌄</span>
+      </button>
+      <div id="${detailsId}" class="leaderboard-card__details" hidden>
+        ${deckText ? `<pre class="leaderboard-card__deck-text">${escapeHtml(deckText)}</pre>` : '<p class="muted">Deck details coming soon.</p>'}
+        ${warlordDbUrl ? `<p><a class="button button--ghost leaderboard-card__link" href="${escapeHtml(warlordDbUrl)}" target="_blank" rel="noopener noreferrer">View on warlordDB</a></p>` : ''}
+      </div>
+    `;
+
+    const toggle = article.querySelector('.leaderboard-card__toggle');
+    const details = article.querySelector('.leaderboard-card__details');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      details.hidden = expanded;
+      article.toggleAttribute('open', !expanded);
+    });
+
+    fragment.appendChild(article);
+  });
+
+  leaderboardListEl.appendChild(fragment);
+}
+
 async function loadEvents() {
   try {
     const response = await fetch('events.json', { cache: 'no-store' });
@@ -147,33 +293,58 @@ async function loadEvents() {
     allEvents = (data.events || []).map(event => ({ ...event, timezone: data.timezone || event.timezone || 'America/Denver' }));
     renderEvents();
   } catch (error) {
-    descriptionEl.textContent = 'Could not load site data. Check events.json.';
-    emptyStateEl.hidden = false;
-    emptyStateEl.textContent = error.message;
+    if (descriptionEl) {
+      descriptionEl.textContent = 'Could not load site data. Check events.json.';
+    }
+    if (emptyStateEl) {
+      emptyStateEl.hidden = false;
+      emptyStateEl.textContent = error.message;
+    }
   }
 }
 
-showPastButton.addEventListener('click', () => {
-  showPast = !showPast;
-  showPastButton.textContent = showPast ? 'Hide past events' : 'Show past events';
-  renderEvents();
-});
+if (showPastButton) {
+  showPastButton.addEventListener('click', () => {
+    showPast = !showPast;
+    showPastButton.textContent = showPast ? 'Hide past events' : 'Show past events';
+    renderEvents();
+  });
+}
 
-downloadEventsButton.addEventListener('click', async () => {
+if (downloadEventsButton) {
+  downloadEventsButton.addEventListener('click', async () => {
+    try {
+      const response = await fetch('events.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Could not download events.json: ${response.status}`);
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'events.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      window.alert(error.message);
+    }
+  });
+}
+
+async function loadLeaderboard() {
   try {
-    const response = await fetch('events.json', { cache: 'no-store' });
-    if (!response.ok) throw new Error(`Could not download events.json: ${response.status}`);
-    const blob = await response.blob();
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'events.json';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(link.href);
+    const response = await fetch('leaderboard.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Could not load leaderboard.json: ${response.status}`);
+    const text = await response.text();
+    const data = parseLeaderboardPayload(text);
+    renderLeaderboard(Array.isArray(data) ? data : data.entries || []);
   } catch (error) {
-    window.alert(error.message);
+    if (leaderboardListEl) {
+      leaderboardListEl.innerHTML = `<p class="empty-state">${escapeHtml(error.message)}</p>`;
+    }
   }
-});
+}
 
-loadEvents();
+if (eventsEl && emptyStateEl && descriptionEl) {
+  loadEvents();
+}
+loadLeaderboard();
